@@ -18,11 +18,34 @@ resources:
       - IPProtocol: TCP
         ports: [22, 80, 3389]
       - IPProtocol: ICMP
+# backend-network
+- name: backend-net
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: true
+# firewall rule
+- name: backend-net-allow-http-ssh-rdp-icmp
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.frontend-net.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+      - IPProtocol: TCP
+        ports: [22, 80, 3389]
+      - IPProtocol: ICMP
 # vm-fe
-- name: frontend-net
+- name: vm-fe
   type: gcp_deployment_manager_instance_template.yaml.j2
   properties:
     zone: europe-west1-d
     machineType: n1-standard-1
     network: $(ref.frontend-net.selfLink)
     subnetwork: regions/europe-west1/subnetworks/frontend-net
+  # vm-be
+- name: vm-be
+  type: gcp_deployment_manager_instance_template.yaml.j2
+  properties:
+    zone: europe-west1-d
+    machineType: n1-standard-1
+    network: $(ref.backend-net-net.selfLink)
+    subnetwork: regions/europe-west1/subnetworks/backend-net
