@@ -1,6 +1,3 @@
-imports:
-- path: gcp_deployment_manager_instance_template.yaml.j2
-
 resources:
 # backend-netword
 - name: backend-net
