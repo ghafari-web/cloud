@@ -1,0 +1,50 @@
+imports:
+- path: gcp_deployment_manager_instance_template.yaml.j2
+
+resources:
+# backend-netword
+- name: backend-net
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: true
+# firewall rule
+- name: backend-net-allow-http-ssh-rdp-icmp
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.backend-net.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+      - IPProtocol: TCP
+        ports: [22, 80, 3389]
+      - IPProtocol: ICMP
+# frontend-network
+- name: frontend-net
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: true
+# firewall rule
+- name:frontend-net-allow-http-ssh-rdp-icmp
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.frontend-net.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+      - IPProtocol: TCP
+        ports: [22, 80, 3389]
+      - IPProtocol: ICMP
+# vm-be
+- name: vm-be
+  type: gcp_deployment_manager_instance_template.yaml.j2
+  properties:
+    zone: europe-central1-a
+    machineType: n1-standard-1
+    network: $(ref.backend-net.selfLink)
+    subnetwork: regions/europe-central1/subnetworks/backend-net
+# vm-fe
+- name: frontend-net
+  type: gcp_deployment_manager_instance_template.yaml.j2
+  properties:
+    zone: europe-west1-d
+    machineType: n1-standard-1
+    network: $(ref.frontend-net.selfLink)
+    subnetwork: regions/europe-west1/subnetworks/frontend-net
