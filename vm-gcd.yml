@@ -23,7 +23,7 @@ resources:
   properties:
     autoCreateSubnetworks: true
 # firewall rule
-- name:frontend-net-allow-http-ssh-rdp-icmp
+- name: frontend-net-allow-http-ssh-rdp-icmp
   type: compute.v1.firewall
   properties:
     network: $(ref.frontend-net.selfLink)
