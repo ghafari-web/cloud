@@ -84,3 +84,42 @@ resources:
     sourceRanges: ["0.0.0.0/0"]
     allowed:
     - IPProtocol: ICMP
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+  kind: ComputeNetworkPeering
+  metadata:
+    name: fronttoback
+  spec:
+    exportCustomRoutes: false
+    importCustomRoutes: false
+    networkRef:
+      name: frontend-net
+    peerNetworkRef:
+      name: backend-net
+  ---
+  apiVersion: compute.cnrm.cloud.google.com/v1beta1
+  kind: ComputeNetworkPeering
+  metadata:
+    name: backtofront
+  spec:
+    exportCustomRoutes: false
+    importCustomRoutes: false
+    networkRef:
+      name: backend-net
+    peerNetworkRef:
+      name: frontend-net
+  ---
+  apiVersion: compute.cnrm.cloud.google.com/v1beta1
+  kind: ComputeNetwork
+  metadata:
+    name: fronttoback
+  spec:
+    routingMode: REGIONAL
+    autoCreateSubnetworks: false
+  ---
+  apiVersion: compute.cnrm.cloud.google.com/v1beta1
+  kind: ComputeNetwork
+  metadata:
+    name: backtofront
+  spec:
+    routingMode: REGIONAL
+    autoCreateSubnetworks: false
