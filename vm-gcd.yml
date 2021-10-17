@@ -1,51 +1,86 @@
-imports:
-- path: gcp_deployment_manager_instance_template.yaml.j2
-
 resources:
-
-# frontend-network
-- name: frontend-net
-  type: compute.v1.network
+- type: compute.v1.instance
+  name: vm-fe
   properties:
-    autoCreateSubnetworks: true
-# firewall rule
-- name: frontend-net-allow-http-ssh-rdp-icmp
+    zone: europe-central2-a
+    machineType: https://www.googleapis.com/compute/v1/projects/exercice2-tp-gcp-328522/zones/europe-central2-a/machineTypes/f1-micro
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9
+    networkInterfaces:
+    - network: $(ref.frontend-net.selfLink)
+      subnetwork: $(ref.frontend-sub.selfLink)
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+- type: compute.v1.network
+  name: frontend-net
+  properties:
+    autoCreateSubnetworks: false
+- name: frontend-sub
+  type: compute.v1.subnetwork
+  properties:
+    ipCidrRange: 10.0.0.0/24
+    network: $(ref.frontend-net.selfLink)
+    privateIpGoogleAccess: false
+    region: europe-central2
+- name: ssh-frontend-net
   type: compute.v1.firewall
   properties:
     network: $(ref.frontend-net.selfLink)
     sourceRanges: ["0.0.0.0/0"]
     allowed:
-      - IPProtocol: TCP
-        ports: [22, 80, 3389]
-      - IPProtocol: ICMP
-# backend-network
-- name: backend-net
-  type: compute.v1.network
-  properties:
-    autoCreateSubnetworks: true
-# firewall rule
-- name: backend-net-allow-http-ssh-rdp-icmp
+    - IPProtocol: TCP
+      ports: ["22"]
+- name: icmp-frontend-net
   type: compute.v1.firewall
   properties:
     network: $(ref.frontend-net.selfLink)
     sourceRanges: ["0.0.0.0/0"]
     allowed:
-      - IPProtocol: TCP
-        ports: [22, 80, 3389]
-      - IPProtocol: ICMP
-# vm-fe
-- name: vm-fe
-  type: gcp_deployment_manager_instance_template.yaml.j2
+    - IPProtocol: ICMP
+- type: compute.v1.instance
+  name: vm-be
   properties:
-    zone: europe-west1-d
-    machineType: n1-standard-1
-    network: $(ref.frontend-net.selfLink)
-    subnetwork: regions/europe-west1/subnetworks/frontend-net
-  # vm-be
-- name: vm-be
-  type: gcp_deployment_manager_instance_template.yaml.j2
+    zone: europe-central2-b
+    machineType: https://www.googleapis.com/compute/v1/projects/exercice2-tp-gcp-328522/zones/europe-central2-b/machineTypes/f1-micro #CHANGE ME
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9
+    networkInterfaces:
+    - network: $(ref.backend-net.selfLink)
+      subnetwork: $(ref.backend-sub.selfLink)
+- type: compute.v1.network
+  name: backend-net
   properties:
-    zone: europe-west1-d
-    machineType: n1-standard-1
-    network: $(ref.backend-net-net.selfLink)
-    subnetwork: regions/europe-west1/subnetworks/backend-net
+    autoCreateSubnetworks: false
+- name: backend-sub
+  type: compute.v1.subnetwork
+  properties:
+    ipCidrRange: 192.168.10.0/24
+    network: $(ref.backend-net.selfLink)
+    privateIpGoogleAccess: false
+    region: europe-central2
+- name: ssh-backend-net
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.backend-net.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+    - IPProtocol: TCP
+      ports: ["22"]
+- name: icmp-backend-net
+  type: compute.v1.firewall
+  properties:
+    network: $(ref.backend-net.selfLink)
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+    - IPProtocol: ICMP
