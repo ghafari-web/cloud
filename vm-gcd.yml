@@ -84,42 +84,32 @@ resources:
     sourceRanges: ["0.0.0.0/0"]
     allowed:
     - IPProtocol: ICMP
-apiVersion: compute.cnrm.cloud.google.com/v1beta1
-  kind: ComputeNetworkPeering
+- name: fronttoback
+  action: gcp-types/compute-v1:compute.networks.addPeering
   metadata:
-    name: fronttoback
-  spec:
-    exportCustomRoutes: false
-    importCustomRoutes: false
-    networkRef:
-      name: frontend-net
-    peerNetworkRef:
-      name: backend-net
-  ---
-  apiVersion: compute.cnrm.cloud.google.com/v1beta1
-  kind: ComputeNetworkPeering
+    runtimePolicy:
+    - CREATE
+  properties:
+    network: frontend-net
+    name: vpc-2-1
+    autoCreateRoutes: true
+    peerNetwork: $(ref.backend-net.selfLink)
   metadata:
-    name: backtofront
-  spec:
-    exportCustomRoutes: false
-    importCustomRoutes: false
-    networkRef:
-      name: backend-net
-    peerNetworkRef:
-      name: frontend-net
-  ---
-  apiVersion: compute.cnrm.cloud.google.com/v1beta1
-  kind: ComputeNetwork
+    dependsOn:
+    - frontend-net
+    - backend-net
+
+- name: backtofront
+  action: gcp-types/compute-v1:compute.networks.addPeering
   metadata:
-    name: fronttoback
-  spec:
-    routingMode: REGIONAL
-    autoCreateSubnetworks: false
-  ---
-  apiVersion: compute.cnrm.cloud.google.com/v1beta1
-  kind: ComputeNetwork
+    runtimePolicy:
+    - CREATE
+  properties:
+    network: backend-net
+    name: vpc-1-2
+    autoCreateRoutes: true
+    peerNetwork: $(ref.frontend-net.selfLink)
   metadata:
-    name: backtofront
-  spec:
-    routingMode: REGIONAL
-    autoCreateSubnetworks: false
+    dependsOn:
+    - frontend-net
+    - backend-net
