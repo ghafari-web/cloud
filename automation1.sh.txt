@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Deleting instances..."
+gcloud compute instances delete vm-fe -q
+gcloud compute instances delete vm-be -q 
+
+echo "Removing firewall rules..."
+gcloud compute firewall-rules delete allow-ingress-admin-backend-net -q 
+gcloud compute firewall-rules delete allow-ingress-insecure-frontend-net -q 
+
+echo "Removing subnets and network..."
+gcloud compute networks subnets delete backend-subnet -q
+gcloud compute networks subnets delete frontend-subnet -q
+gcloud compute networks delete frontend-net -q
+gcloud compute networks delete backend-net -q
+
+echo "Done"

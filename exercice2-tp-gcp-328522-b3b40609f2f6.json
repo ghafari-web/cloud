@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "exercice2-tp-gcp-328522",
+  "private_key_id": "b3b40609f2f671a38e74e9bda740ce2c1ed3c1ad",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDQm3vEdqBQL/X1\n3FRuHE78OsHahWMpPUIVfUqDTSvKxr94t1S6R8RywghXtRSAUKhiHrm5myyfkanb\nUEfNPTWprMUtJvFGJE8GFwe8mqvBeVJ4a7mehmDpxItwRMkub5McbfQHVnSBObKc\ndkZYDjoUJxE7vlHMTf1ie+NGvq6f56qsAskFHgi3KUuBAKsB/Lpezy4SmmgKs7q2\ntBtYihx+RnzhjDtEaLfsp03PgJ0qTK/JpVoJ5aLmoNLd1Fqs5xo+wvSEf04kHAfR\n3LdoSe0poC93dHBqIIXH9yszSdEyYJt+Zv8838zQAdzGdHutEnJ7b6xqXFddRmhi\nEwQG2kZhAgMBAAECggEAAli+XBjF/yLPsEbCSzVkySEAyZ1Hk6PVER/+zx5B4r0T\nJnKMzs3DwY9uv8TkPUQb9JHoRFwv/ELW7iQ+K3mHrj6oxh2M6hmcdm8iXAdRKU8+\nuV96gOVfnsc8tOjm1BzW97JgAhc9pkXKiKL9nv/Yj0sBcwkDWI0TGs43vAEdtxD/\nhFxIMs+b8S3rbXD3cW4uB+sQ0QfebOV3gTvwTFhpvriKa2f3Vyp6qAjzWOu4j8L2\nTLCWqSjM6n2Aa9kq/Ites/Mosoh7wON4jFB8gy4H6E9OZM4CnCcpAgE0+mONMeKO\nwXVvuiXpP5vdXnrdzur3jhSLGk+h5isZjTFgwCjW5QKBgQD+YFWp2DUjIsLBJrlK\nE/VWb9dR9T5vn9z+Qx6CjDauJbMDsag9sLvyjTE7MshO2gm3N29zv1n69cBkgmK6\nKIYRrx9zm4bcQ2kXfWQqXVq2AP39fflo1iUXxDwgUbabYDJQ3JotoyxgyMp8L30d\nHsCBfOmexz4cR3/XiLztpVTc0wKBgQDR8FwaCV+4JNHvLEkSw6xvr24Tb5TSOGyA\n+PSjbFeGlgqCNqPmWO5MWo1uEERXzrivhptGZtbBx/YSlXlYGrvyGpq4ZFznIyDc\n/++SklBKbL3aWVfF7urJthPsHenhL+uaRII9aRcBHxNVPFXxstaWaJpawVviqyGp\nR2/YCar/ewKBgQCLEjQDVZdHjFuZqggnPd4l0aOQxVnLQUVbJWrqyKmkcCv82wY2\nJAe9RgAic1Mb+QzSxFYEnBsfn3f9+2Lqj/ksdefmFqOWjKxKEV3P45YSZ1x1WIgh\nDuLcqYaNzN7e96rKlrEcPlem2mAJoRTv9L4ejSJUkm2cnGKCfdl8u6U3zQKBgA9M\nnOmo1TjuNf5gE9MyP1bEShlQgF/xjLa5bdqbAqXkOU/T+43F3VfjIXtr5A8iGYNx\nI8+1nuDwWZZxHi61hAzYs33MkpiljreMT0E3OHK0CgHnkOXzy1h31GvYojqu61SK\nuZMQHYUPZrFHfFvo1IqRhO4oOTIDlqhndFciHTwRAoGBAMsu7H95kmxNlOApjjnN\nfSS/rFRE/HdZ1MYOsY5pDqPcDkn0pAQmjwF1bPsou9AGAcn/wgaz+c7PTe9EkXcW\nYFXjjG0q50imC2blpMHyghQsrMvYQv+hUxZP+9NRgwLB6S3aFoZdMbCXAvT4K1YP\n5zx1yrSDXv8pNcPUUAkrjsI/\n-----END PRIVATE KEY-----\n",
+  "client_email": "automatisation-projet-tpgcp@exercice2-tp-gcp-328522.iam.gserviceaccount.com",
+  "client_id": "112158704022516854772",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/automatisation-projet-tpgcp%40exercice2-tp-gcp-328522.iam.gserviceaccount.com"
+}

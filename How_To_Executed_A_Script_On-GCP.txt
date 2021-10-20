@@ -1,0 +1,21 @@
+Three Ways to create a start up script in GCP
+
+1. Using Start-up script
+ hard-code the script
+
+2. Instance MetaData 
+ 1.Use the below Gcloud command
+ Key:startup-script
+ gcloud compute instances create example-instance \
+   --metadata-from-file startup-script=install.sh
+
+ 2.Use Cloud storage :
+ Key:startup-script-url
+ gs://BUCKET/FILE or https://storage.googleapis.com/BUCKET... format.
+
+3.Project Metadata
+ 1.hard-code the script in the key value :
+ Key:startup-script
+ 2.Use Cloud storage :
+ Key:startup-script-url
+ gs://BUCKET/FILE or https://storage.googleapis.com/BUCKET... format.
